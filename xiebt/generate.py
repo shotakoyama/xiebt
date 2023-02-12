@@ -3,6 +3,7 @@ from fairseq import options, utils
 from fairseq.dataclass.utils import convert_namespace_to_omegaconf
 from .task import BackTranslationTask
 from .util import *
+from omegaconf import open_dict
 
 def xiebt_generate(cfg):
     logger = make_logger()
@@ -14,7 +15,7 @@ def xiebt_generate(cfg):
     src_dict, tgt_dict = load_dicts(task)
     models = load_models(logger, cfg, task, use_cuda)
     progress = make_progress_bar(cfg, task, models)
-    generator = task.build_generator(models, cfg)
+    generator = task.build_generator(models, cfg.generation)
 
     for sample in progress:
         sample = utils.move_to_cuda(sample) if use_cuda else sample
@@ -29,6 +30,8 @@ def main():
     parser.add_argument('--beta-random', default = 8.0, type = float)
     args = options.parse_args_and_arch(parser)
     cfg = convert_namespace_to_omegaconf(args)
+    with open_dict(cfg):
+        cfg.generation.beta_random = args.beta_random
     xiebt_generate(cfg)
 
 
