@@ -7,19 +7,21 @@ This is a data augmentation method for grammatical error correction (GEC).
 ## Install
 
 First, please install fairseq.
-I use v0.10.2.
+I use v0.12.2.
 
 ```
-pip install fairseq==v0.10.2
+pip install fairseq==v0.12.2
 ```
 
 or
 
 ```
-git clone https://github.com/pytorch/fairseq.git -b v0.10.2
+git clone https://github.com/pytorch/fairseq.git -b v0.12.2
 cd fairseq
 pip install -e .
 ```
+
+If you want to use fairseq v0.10.2, please use code of commit 1db9c58.
 
 Then, please install xiebt.
 
@@ -65,4 +67,5 @@ xiebt-generate \
 ```
 
 As for beta-random, 6.0 is used in Kiyono et al. 2019 (https://aclanthology.org/D19-1119.pdf) and 8.0 in Koyama et al. 2021 (https://aclanthology.org/2021.naacl-srw.16.pdf).
+So this example above is not a recommendation of back-translation. If you want to know the optimal condition of back-translation, you have to search it by yourself.
 
